@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicos - Admin Care Plus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+            <h2>Care Plus</h2>
+            <small>Painel Administrativo</small>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Principal</div>
+            <a href="index.html" class="nav-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+            <div class="nav-section">Cadastros</div>
+            <a href="challenges.html" class="nav-item"><i class="bi bi-shield-check"></i> Desafios</a>
+            <a href="procedures.html" class="nav-item"><i class="bi bi-clipboard2-pulse"></i> Procedimentos</a>
+            <a href="specialties.html" class="nav-item"><i class="bi bi-heart-pulse"></i> Especialidades</a>
+            <a href="doctors.html" class="nav-item active"><i class="bi bi-person-badge"></i> Medicos</a>
+            <a href="regions.html" class="nav-item"><i class="bi bi-geo-alt"></i> Regioes</a>
+            <a href="badges.html" class="nav-item"><i class="bi bi-award"></i> Badges</a>
+            <a href="age-groups.html" class="nav-item"><i class="bi bi-people"></i> Faixas Etarias</a>
+            <div class="nav-section">Conteudo</div>
+            <a href="events.html" class="nav-item"><i class="bi bi-calendar-event"></i> Eventos</a>
+            <a href="news.html" class="nav-item"><i class="bi bi-newspaper"></i> Noticias</a>
+            <div class="nav-section">Gestao</div>
+            <a href="users.html" class="nav-item"><i class="bi bi-person"></i> Usuarios</a>
+            <a href="appointments.html" class="nav-item"><i class="bi bi-calendar-check"></i> Agendamentos</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#logout"><i class="bi bi-box-arrow-right"></i> Sair</a>
+        </div>
+    </aside>
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <button class="btn-mobile-menu" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+            <div class="topbar-title">Medicos</div>
+            <div class="topbar-actions">
+                <button class="btn btn-primary" onclick="AdminCRUD.openNew()"><i class="bi bi-plus-lg"></i> Novo Medico</button>
+            </div>
+        </header>
+        <div class="admin-content">
+            <div class="admin-card">
+                <div class="card-header">
+                    <h3>Lista de Medicos</h3>
+                    <div class="filter-bar">
+                        <div class="search-input">
+                            <i class="bi bi-search"></i>
+                            <input type="text" placeholder="Buscar medico...">
+                        </div>
+                        <select class="form-control filter-select">
+                            <option>Todas especialidades</option>
+                            <option>Cardiologia</option>
+                            <option>Ginecologia</option>
+                            <option>Dermatologia</option>
+                            <option>Oftalmologia</option>
+                            <option>Ortopedia</option>
+                            <option>Pediatria</option>
+                            <option>Urologia</option>
+                        </select>
+                        <select class="form-control filter-select">
+                            <option>Todas regioes</option>
+                            <option>Sao Paulo - Zona Sul</option>
+                            <option>Sao Paulo - Zona Oeste</option>
+                            <option>Sao Paulo - Centro</option>
+                            <option>Rio de Janeiro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Especialidade</th>
+                                <th>Regiao</th>
+                                <th>Acoes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crudBody">
+                            <tr><td colspan="4" class="admin-table-loading">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalDoctor">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Novo Medico</h3>
+                <button class="modal-close" onclick="closeModal('modalDoctor')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nome completo</label>
+                    <input type="text" class="form-control" id="fName" placeholder="Ex: Dr. Marcos Silva">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Especialidade</label>
+                        <select class="form-control" id="fSpecialty">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Regiao</label>
+                        <select class="form-control" id="fRegion">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('modalDoctor')">Cancelar</button>
+                <button class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/admin-crud.js"></script>
+    <script src="js/doctors.js"></script>
+</body>
+</html>

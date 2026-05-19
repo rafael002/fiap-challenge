@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos - Care Plus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="cp-sidebar-overlay" onclick="toggleSidebar()"></div>
+    <aside class="cp-sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-brand-text">Care Plus</span>
+            <button class="cp-hamburger" onclick="toggleSidebar()"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="sidebar-user">
+            <div class="sidebar-avatar">RL</div>
+            <div>
+                <div class="sidebar-name">Rafael Lourenco</div>
+                <div class="sidebar-email">rafael@email.com</div>
+            </div>
+        </div>
+        <a href="index.html" class="sidebar-link"><i class="bi bi-house"></i> Inicio</a>
+        <a href="agendamentos.html" class="sidebar-link"><i class="bi bi-calendar-check"></i> Agendamentos</a>
+        <a href="desafios.html" class="sidebar-link"><i class="bi bi-shield-check"></i> Desafios</a>
+        <a href="ranking.html" class="sidebar-link"><i class="bi bi-trophy"></i> Ranking</a>
+        <a href="eventos.html" class="sidebar-link"><i class="bi bi-calendar-event"></i> Eventos</a>
+        <a href="noticias.html" class="sidebar-link"><i class="bi bi-newspaper"></i> Noticias</a>
+        <a href="perfil.html" class="sidebar-link"><i class="bi bi-person"></i> Perfil</a>
+        <a href="notificacoes.html" class="sidebar-link"><i class="bi bi-bell"></i> Notificacoes</a>
+        <a href="#" class="sidebar-link danger"><i class="bi bi-box-arrow-right"></i> Sair</a>
+    </aside>
+    <header class="cp-header">
+        <div class="cp-header-top">
+            <button class="cp-hamburger" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+            <div class="logo-text">Care Plus</div>
+            <div class="header-actions">
+                <button class="notification-btn" onclick="location.href='notificacoes.html'"><i class="bi bi-bell"></i><span class="notification-badge" style="display:none;">0</span></button>
+            </div>
+        </div>
+    </header>
+    <div class="cp-page-title">
+        <h1>Agendamentos</h1>
+    </div>
+    <div class="cp-tabs">
+        <button class="cp-tab active" data-tab="proximos">Proximos</button>
+        <button class="cp-tab" data-tab="historico">Historico</button>
+    </div>
+    <div class="cp-tab-content active" id="tab-proximos">
+        <div class="appt-filters">
+            <button class="btn btn-cp-primary flex-grow-1" onclick="openModal('APPOINTMENT')">
+                <i class="bi bi-heart-pulse me-1"></i>Nova Consulta
+            </button>
+            <button class="btn btn-cp-cta flex-grow-1" onclick="openModal('EXAM')">
+                <i class="bi bi-clipboard2-pulse me-1"></i>Novo Exame
+            </button>
+        </div>
+        <div id="upcomingList">
+            <div class="skeleton skeleton-card"><div class="skeleton-row"><div class="skeleton skeleton-circle"></div><div class="skeleton-flex"><div class="skeleton skeleton-text w-60"></div><div class="skeleton skeleton-text w-40"></div><div class="skeleton skeleton-text w-80"></div></div></div></div>
+            <div class="skeleton skeleton-card"><div class="skeleton-row"><div class="skeleton skeleton-circle"></div><div class="skeleton-flex"><div class="skeleton skeleton-text w-60"></div><div class="skeleton skeleton-text w-40"></div></div></div></div>
+        </div>
+    </div>
+    <div class="cp-tab-content" id="tab-historico">
+        <div id="pastList">
+            <div class="skeleton skeleton-card"><div class="skeleton-row"><div class="skeleton skeleton-circle"></div><div class="skeleton-flex"><div class="skeleton skeleton-text w-60"></div><div class="skeleton skeleton-text w-40"></div></div></div></div>
+        </div>
+    </div>
+    <div id="apptDetailView" class="cp-detail-view" style="display:none;">
+        <button onclick="closeApptDetail()" class="cp-back-link">
+            <i class="bi bi-chevron-left"></i> Voltar para agendamentos
+        </button>
+        <div id="apptDetailContent"></div>
+    </div>
+    <div class="modal fade" id="modalConsulta" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <h5 class="modal-title"><i class="bi bi-heart-pulse me-2"></i>Nova Consulta</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formConsulta">
+                        <div class="mb-3"><label class="form-label fw-semibold">Especialidade</label><select class="form-select" id="cSpecialty"><option value="">Selecione...</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Medico</label><select class="form-select" id="cDoctor" disabled><option value="">Selecione a especialidade primeiro</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Data</label><select class="form-select" id="cDate" disabled><option value="">Selecione o medico primeiro</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Horario</label><select class="form-select" id="cTime" disabled><option value="">Selecione a data primeiro</option></select></div>
+                        <div class="mb-3" id="cLocationWrap" style="display:none;"><label class="form-label fw-semibold">Local</label><div class="form-control-plaintext fw-semibold form-display" id="cLocation"></div></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cp-outline" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-cp-primary" id="btnConfirmConsulta" disabled><i class="bi bi-check-lg me-1"></i>Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalReagendar" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <h5 class="modal-title"><i class="bi bi-arrow-repeat me-2"></i>Reagendar</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="reschedInfo" class="appt-info-box"></div>
+                    <!-- Penalty warning: shown when rescheduling <3 days before appointment -->
+                    <div id="reschedPenaltyWarn" class="appt-penalty-warn" style="display:none;"><i class="bi bi-exclamation-triangle me-1"></i>Faltam menos de 3 dias. Reagendar aplicara penalidade de pontos.</div>
+                    <div id="reschedNoPenalty" class="appt-no-penalty" style="display:none;"><i class="bi bi-check-circle me-1"></i>Sem penalidade (mais de 3 dias).</div>
+                    <form id="formReagendar">
+                        <div class="mb-3" id="rFacilityWrap" style="display:none;"><label class="form-label fw-semibold">Unidade</label><select class="form-select" id="rFacility"><option value="">Selecione...</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Nova Data</label><select class="form-select" id="rDate" disabled><option value="">Selecione...</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Horario</label><select class="form-select" id="rTime" disabled><option value="">Selecione a data primeiro</option></select></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cp-outline" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-cp-primary" id="btnConfirmReagendar" disabled><i class="bi bi-check-lg me-1"></i>Confirmar reagendamento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalExame" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header modal-header-success">
+                    <h5 class="modal-title"><i class="bi bi-clipboard2-pulse me-2"></i>Novo Exame</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formExame">
+                        <div class="mb-3"><label class="form-label fw-semibold">Exame</label><select class="form-select" id="eProcedure"><option value="">Selecione...</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Unidade</label><select class="form-select" id="eFacility" disabled><option value="">Selecione o exame primeiro</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Data</label><select class="form-select" id="eDate" disabled><option value="">Selecione a unidade primeiro</option></select></div>
+                        <div class="mb-3"><label class="form-label fw-semibold">Horario</label><select class="form-select" id="eTime" disabled><option value="">Selecione a data primeiro</option></select></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cp-outline" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-cp-primary" id="btnConfirmExame" disabled><i class="bi bi-check-lg me-1"></i>Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/agendamentos.js"></script>
+</body>
+</html>

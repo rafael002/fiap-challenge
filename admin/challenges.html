@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafios - Admin Care Plus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+            <h2>Care Plus</h2>
+            <small>Painel Administrativo</small>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Principal</div>
+            <a href="index.html" class="nav-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+            <div class="nav-section">Cadastros</div>
+            <a href="challenges.html" class="nav-item active"><i class="bi bi-shield-check"></i> Desafios</a>
+            <a href="procedures.html" class="nav-item"><i class="bi bi-clipboard2-pulse"></i> Procedimentos</a>
+            <a href="specialties.html" class="nav-item"><i class="bi bi-heart-pulse"></i> Especialidades</a>
+            <a href="doctors.html" class="nav-item"><i class="bi bi-person-badge"></i> Medicos</a>
+            <a href="regions.html" class="nav-item"><i class="bi bi-geo-alt"></i> Regioes</a>
+            <a href="badges.html" class="nav-item"><i class="bi bi-award"></i> Badges</a>
+            <a href="age-groups.html" class="nav-item"><i class="bi bi-people"></i> Faixas Etarias</a>
+            <div class="nav-section">Conteudo</div>
+            <a href="events.html" class="nav-item"><i class="bi bi-calendar-event"></i> Eventos</a>
+            <a href="news.html" class="nav-item"><i class="bi bi-newspaper"></i> Noticias</a>
+            <div class="nav-section">Gestao</div>
+            <a href="users.html" class="nav-item"><i class="bi bi-person"></i> Usuarios</a>
+            <a href="appointments.html" class="nav-item"><i class="bi bi-calendar-check"></i> Agendamentos</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#logout"><i class="bi bi-box-arrow-right"></i> Sair</a>
+        </div>
+    </aside>
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <button class="btn-mobile-menu" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+            <div class="topbar-title">Desafios</div>
+            <div class="topbar-actions">
+                <button class="btn btn-primary" onclick="openNewChallenge()"><i class="bi bi-plus-lg"></i> Novo Desafio</button>
+            </div>
+        </header>
+        <div class="admin-content">
+            <div class="admin-card">
+                <div class="card-header">
+                    <h3>Lista de Desafios</h3>
+                    <div class="filter-bar">
+                        <div class="search-input">
+                            <i class="bi bi-search"></i>
+                            <input type="text" placeholder="Buscar desafio...">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Sexo</th>
+                                <th>Faixa Etaria</th>
+                                <th>Bonus</th>
+                                <th>Valido ate</th>
+                                <th>Status</th>
+                                <th>Acoes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crudBody">
+                            <tr><td colspan="7" class="admin-table-loading">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalChallenge">
+        <div class="modal-box modal-box-lg">
+            <div class="modal-header">
+                <h3>Novo Desafio</h3>
+                <button class="modal-close" onclick="closeModal('modalChallenge')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nome do desafio</label>
+                    <input type="text" class="form-control" id="fName" placeholder="Ex: Previna-se contra o cancer de mama!">
+                </div>
+                <div class="form-group">
+                    <label>Descricao</label>
+                    <textarea class="form-control" id="fDesc" placeholder="Descreva o objetivo do desafio..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Bonus (pontos)</label>
+                        <input type="number" class="form-control" id="fBonus" placeholder="500" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Sexo biologico</label>
+                        <select class="form-control" id="fSex">
+                            <option value="GERAL">Geral</option>
+                            <option value="MASCULINO">Masculino</option>
+                            <option value="FEMININO">Feminino</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Faixa etaria alvo</label>
+                        <select class="form-control" id="fAgeGroup">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="fIsActive">
+                            <option value="true">Ativo</option>
+                            <option value="false">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Valido ate (opcional)</label>
+                        <input type="date" class="form-control" id="fExpiresAt">
+                    </div>
+                    <div class="form-group form-group-flex-end">
+                        <span class="form-hint">Deixe vazio para desafio sem data de expiracao</span>
+                    </div>
+                </div>
+                <div class="steps-section">
+                    <div class="steps-section-header">
+                        <label><i class="bi bi-list-nested"></i> Etapas do Desafio</label>
+                        <button class="btn btn-outline btn-sm" type="button" onclick="addStepBlock()"><i class="bi bi-plus-lg"></i> Etapa</button>
+                    </div>
+                    <div id="stepsInlineList"></div>
+                    <div id="stepsEmptyMsg" class="steps-empty">Nenhuma etapa. Clique em "+ Etapa" para adicionar.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('modalChallenge')">Cancelar</button>
+                <button class="btn btn-primary" id="btnSaveChallenge">Salvar</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/challenges.js"></script>
+</body>
+</html>

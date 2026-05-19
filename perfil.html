@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Care Plus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="cp-sidebar-overlay" onclick="toggleSidebar()"></div>
+    <aside class="cp-sidebar">
+        <div class="sidebar-header"><span class="sidebar-brand-text">Care Plus</span><button class="cp-hamburger" onclick="toggleSidebar()"><i class="bi bi-x-lg"></i></button></div>
+        <div class="sidebar-user"><div class="sidebar-avatar">RL</div><div><div class="sidebar-name">Rafael Lourenco</div><div class="sidebar-email">rafael@email.com</div></div></div>
+        <a href="index.html" class="sidebar-link"><i class="bi bi-house"></i> Inicio</a>
+        <a href="agendamentos.html" class="sidebar-link"><i class="bi bi-calendar-check"></i> Agendamentos</a>
+        <a href="desafios.html" class="sidebar-link"><i class="bi bi-shield-check"></i> Desafios</a>
+        <a href="ranking.html" class="sidebar-link"><i class="bi bi-trophy"></i> Ranking</a>
+        <a href="eventos.html" class="sidebar-link"><i class="bi bi-calendar-event"></i> Eventos</a>
+        <a href="noticias.html" class="sidebar-link"><i class="bi bi-newspaper"></i> Noticias</a>
+        <a href="perfil.html" class="sidebar-link"><i class="bi bi-person"></i> Perfil</a>
+        <a href="notificacoes.html" class="sidebar-link"><i class="bi bi-bell"></i> Notificacoes</a>
+        <a href="#" class="sidebar-link danger"><i class="bi bi-box-arrow-right"></i> Sair</a>
+    </aside>
+    <header class="cp-header">
+        <div class="cp-header-top">
+            <button class="cp-hamburger" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+            <div class="logo-text">Care Plus</div>
+            <div class="header-actions"><button class="notification-btn" onclick="location.href='notificacoes.html'"><i class="bi bi-bell"></i><span class="notification-badge" style="display:none;">0</span></button></div>
+        </div>
+    </header>
+    <div class="cp-profile-header">
+        <div class="profile-avatar" id="profileAvatar">--</div>
+        <h2 class="profile-name" id="profileName">&nbsp;</h2>
+        <p class="profile-info" id="profileInfo"></p>
+        <div class="profile-stats">
+            <div class="stat-item"><div class="stat-value" id="statPoints">--</div><div class="stat-label">Pontos</div></div>
+            <div class="stat-divider"></div>
+            <div class="stat-item"><div class="stat-value" id="statRanking">--</div><div class="stat-label">Ranking</div></div>
+            <div class="stat-divider"></div>
+            <div class="stat-item"><div class="stat-value" id="statChallenges">--</div><div class="stat-label">Desafios</div></div>
+            <div class="stat-divider"></div>
+            <div class="stat-item"><div class="stat-value" id="statBadges">--</div><div class="stat-label">Badges</div></div>
+        </div>
+    </div>
+    <div class="cp-share-overlay" id="shareOverlay" onclick="closeShareModal()">
+        <div class="cp-share-modal" onclick="event.stopPropagation()">
+            <div class="share-card" id="shareCard">
+                <div class="share-card-header">
+                    <span class="share-card-brand">Care Plus</span>
+                    <span class="share-card-tag">Conquista</span>
+                </div>
+                <div class="share-card-badge" id="shareCardBadge"></div>
+                <div class="share-card-name" id="shareCardName"></div>
+                <div class="share-card-desc" id="shareCardDesc"></div>
+                <div class="share-card-user" id="shareCardUser"></div>
+                <div class="share-card-points" id="shareCardPoints"></div>
+            </div>
+            <div class="share-actions">
+                <button class="btn-share-native" id="btnShareNative" onclick="shareNative()"><i class="bi bi-share"></i> Compartilhar</button>
+                <button class="btn-share-copy" onclick="copyShareCard()"><i class="bi bi-clipboard"></i> Copiar imagem</button>
+                <button class="btn-share-close" onclick="closeShareModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <div class="cp-content">
+        <div class="cp-section-title"><span>Minhas Badges</span></div>
+        <div class="cp-badges-scroll" id="badgesList">
+            <div class="profile-badges-row">
+                <div class="skeleton skeleton-badge"></div>
+                <div class="skeleton skeleton-badge"></div>
+                <div class="skeleton skeleton-badge"></div>
+                <div class="skeleton skeleton-badge"></div>
+            </div>
+        </div>
+        <div class="cp-section-title"><span>Historico de Pontos</span></div>
+        <div class="cp-points-list" id="pointsHistory">
+            <div class="skeleton skeleton-card"><div class="skeleton-row"><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton-flex"><div class="skeleton skeleton-text w-60"></div><div class="skeleton skeleton-text w-40"></div></div></div></div>
+            <div class="skeleton skeleton-card"><div class="skeleton-row"><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton-flex"><div class="skeleton skeleton-text w-80"></div><div class="skeleton skeleton-text w-40"></div></div></div></div>
+        </div>
+        <div class="cp-menu-list">
+            <a href="#" class="cp-menu-item"><i class="bi bi-person-gear"></i><span>Editar perfil</span><i class="bi bi-chevron-right"></i></a>
+            <a href="#" class="cp-menu-item"><i class="bi bi-share"></i><span>Compartilhar badge</span><i class="bi bi-chevron-right"></i></a>
+            <a href="#" class="cp-menu-item"><i class="bi bi-bell-gear"></i><span>Configurar notificacoes</span><i class="bi bi-chevron-right"></i></a>
+            <a href="#" class="cp-menu-item"><i class="bi bi-question-circle"></i><span>Ajuda</span><i class="bi bi-chevron-right"></i></a>
+            <a href="#" class="cp-menu-item sidebar-link danger"><i class="bi bi-box-arrow-right"></i><span>Sair</span><i class="bi bi-chevron-right"></i></a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/perfil.js"></script>
+</body>
+</html>

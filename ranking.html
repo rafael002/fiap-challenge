@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking - Care Plus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="cp-sidebar-overlay" onclick="toggleSidebar()"></div>
+    <aside class="cp-sidebar">
+        <div class="sidebar-header"><span class="sidebar-brand-text">Care Plus</span><button class="cp-hamburger" onclick="toggleSidebar()"><i class="bi bi-x-lg"></i></button></div>
+        <div class="sidebar-user"><div class="sidebar-avatar">RL</div><div><div class="sidebar-name">Rafael Lourenco</div><div class="sidebar-email">rafael@email.com</div></div></div>
+        <a href="index.html" class="sidebar-link"><i class="bi bi-house"></i> Inicio</a>
+        <a href="agendamentos.html" class="sidebar-link"><i class="bi bi-calendar-check"></i> Agendamentos</a>
+        <a href="desafios.html" class="sidebar-link"><i class="bi bi-shield-check"></i> Desafios</a>
+        <a href="ranking.html" class="sidebar-link"><i class="bi bi-trophy"></i> Ranking</a>
+        <a href="eventos.html" class="sidebar-link"><i class="bi bi-calendar-event"></i> Eventos</a>
+        <a href="noticias.html" class="sidebar-link"><i class="bi bi-newspaper"></i> Noticias</a>
+        <a href="perfil.html" class="sidebar-link"><i class="bi bi-person"></i> Perfil</a>
+        <a href="notificacoes.html" class="sidebar-link"><i class="bi bi-bell"></i> Notificacoes</a>
+        <a href="#" class="sidebar-link danger"><i class="bi bi-box-arrow-right"></i> Sair</a>
+    </aside>
+    <header class="cp-header">
+        <div class="cp-header-top">
+            <button class="cp-hamburger" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+            <div class="logo-text">Care Plus</div>
+            <div class="header-actions"><button class="notification-btn" onclick="location.href='notificacoes.html'"><i class="bi bi-bell"></i><span class="notification-badge" style="display:none;">0</span></button></div>
+        </div>
+    </header>
+    <div class="cp-page-title"><h1>Ranking</h1></div>
+    <div class="cp-tabs">
+        <button class="cp-tab active" data-tab="regional">Regional</button>
+        <button class="cp-tab" data-tab="global">Global</button>
+    </div>
+    <div class="cp-podium" id="podium">
+        <div class="podium-item second animate-slide-up stagger-1"><div class="podium-avatar" id="podium2avatar">--</div><div class="podium-medal"><i class="bi bi-award-fill"></i></div><div class="podium-name" id="podium2name">--</div><div class="podium-points" id="podium2pts">--</div><div class="podium-bar"></div></div>
+        <div class="podium-item first animate-slide-up stagger-1"><div class="podium-crown"><i class="bi bi-stars"></i></div><div class="podium-avatar gold" id="podium1avatar">--</div><div class="podium-medal gold"><i class="bi bi-award-fill"></i></div><div class="podium-name" id="podium1name">--</div><div class="podium-points" id="podium1pts">--</div><div class="podium-bar"></div></div>
+        <div class="podium-item third animate-slide-up stagger-2"><div class="podium-avatar" id="podium3avatar">--</div><div class="podium-medal"><i class="bi bi-award-fill"></i></div><div class="podium-name" id="podium3name">--</div><div class="podium-points" id="podium3pts">--</div><div class="podium-bar"></div></div>
+    </div>
+    <div class="cp-tab-content active" id="tab-regional">
+        <div class="cp-ranking-list" id="regionalList">
+            <div class="skeleton-ranking-item"><div class="skeleton skeleton-ranking-pos"></div><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton skeleton-ranking-name"></div><div class="skeleton skeleton-ranking-pts"></div></div>
+            <div class="skeleton-ranking-item"><div class="skeleton skeleton-ranking-pos"></div><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton skeleton-ranking-name"></div><div class="skeleton skeleton-ranking-pts"></div></div>
+            <div class="skeleton-ranking-item"><div class="skeleton skeleton-ranking-pos"></div><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton skeleton-ranking-name"></div><div class="skeleton skeleton-ranking-pts"></div></div>
+        </div>
+    </div>
+    <div class="cp-tab-content" id="tab-global">
+        <div class="cp-ranking-list" id="globalList">
+            <div class="skeleton-ranking-item"><div class="skeleton skeleton-ranking-pos"></div><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton skeleton-ranking-name"></div><div class="skeleton skeleton-ranking-pts"></div></div>
+            <div class="skeleton-ranking-item"><div class="skeleton skeleton-ranking-pos"></div><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton skeleton-ranking-name"></div><div class="skeleton skeleton-ranking-pts"></div></div>
+            <div class="skeleton-ranking-item"><div class="skeleton skeleton-ranking-pos"></div><div class="skeleton skeleton-circle skeleton-circle-sm"></div><div class="skeleton skeleton-ranking-name"></div><div class="skeleton skeleton-ranking-pts"></div></div>
+        </div>
+    </div>
+    <div class="cp-info-card">
+        <i class="bi bi-info-circle"></i>
+        <div><strong>Como funciona o ranking?</strong><p>Os melhores pontuados do ranking regional participam de palestras e encontros exclusivos. Os destaques do ranking geral tem acesso a eventos premium!</p><small>Atualizado diariamente as 12h</small></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/ranking.js"></script>
+</body>
+</html>
